@@ -1,236 +1,275 @@
 "use strict";
-// Render variables
+
 let domContainer;
 let root;
 let bg = ReactDOM.createRoot(document.querySelector("#backgroundModal"));
 let newItem = ReactDOM.createRoot(document.querySelector("#newItemModal"));
 let itemList = ReactDOM.createRoot(document.querySelector("#itemList"));
 let modalMessage = ReactDOM.createRoot(document.querySelector("#modalMessage"));
-var adapters = [];
+let adapters = [];
 let originalItem;
+let pendingNetworkRequest = null;
+
 const nullItem = {
-	DHCP: "false",
-	adapter: "",
-	gateway: "",
-	ipAddress: "",
-	name: "",
-	subnet: "",
+  DHCP: "false",
+  adapter: "",
+  gateway: "",
+  ipAddress: "",
+  name: "",
+  subnet: "",
 };
-// Get user rights
-window.electron.requestRights();
+
 window.electron.receiveRights((evt, arg) => {
-	if (arg == false) {
-		showMessage("Administrator rights needed to run this app", "alarm");
-	}
+  if (arg === false) {
+    showMessage(
+      JSON.stringify({ type: "fatal", message: "Administrator privileges required", details: "Run the application as Administrator" }),
+      "alarm"
+    );
+  }
 });
 
-// Get network adapters
 window.electron.requestAdapters();
 window.electron.receiveAdapters((evt, arg) => {
-	adapters = arg;
+  adapters = arg;
 });
 
-// Activate network adapter
-function activateNetwork(data) {
-	window.electron.changeNetwork(data);
-	showMessage("Loading...", "warning");
-	//setTimeout(algo, 2000, data);
-	window.electron.checkNetwork((evt, arg) => {
-		checkNetworkChange(arg);
-	});
+function parseErrorResponse(data) {
+  try {
+    const parsed = JSON.parse(data);
+    if (parsed.type && parsed.message) {
+      return {
+        type: parsed.type,
+        message: parsed.message,
+        details: parsed.details || "",
+      };
+    }
+  } catch (e) {
+    // Not JSON, treat as success message
+  }
+  return {
+    type: "success",
+    message: data,
+    details: "",
+  };
 }
 
-// Check if network change succeded or not
+function getMessageColor(type) {
+  switch (type) {
+    case "fatal":
+      return "alarm";
+    case "recoverable":
+      return "warning";
+    case "warning":
+      return "warning";
+    case "success":
+    default:
+      return "success";
+  }
+}
+
+function activateNetwork(data) {
+  if (pendingNetworkRequest) {
+    window.electron.checkNetwork((evt, arg) => {});
+    pendingNetworkRequest = null;
+  }
+
+  window.electron.changeNetwork(data);
+  showMessage("Loading...", "warning");
+
+  pendingNetworkRequest = window.electron.checkNetwork((evt, arg) => {
+    pendingNetworkRequest = null;
+    checkNetworkChange(arg);
+  });
+}
+
 function checkNetworkChange(result) {
-	if (result == "success") {
-		showMessage("Network adapter succesfully changed", "success");
-		setTimeout(hideMessage, 1000);
-	} else {
-		showMessage("Unable to change network adapter", "alarm");
-		setTimeout(hideMessage, 1000);
-	}
+  const errorInfo = parseErrorResponse(result);
+  
+  if (errorInfo.type === "success") {
+    showMessage(
+      JSON.stringify({ type: "success", message: "Network adapter changed successfully", details: "" }),
+      "success"
+    );
+    setTimeout(hideMessage, 1500);
+  } else if (errorInfo.type === "warning") {
+    showMessage(
+      JSON.stringify({ type: "warning", message: errorInfo.message, details: errorInfo.details }),
+      "warning"
+    );
+    setTimeout(hideMessage, 4000);
+  } else {
+    showMessage(
+      JSON.stringify({ type: "fatal", message: errorInfo.message, details: errorInfo.details }),
+      "alarm"
+    );
+    setTimeout(hideMessage, 5000);
+  }
 }
 
 function checkChange(data) {
-	// Check if adapter was changed
-	window.electron.requestAdapterInfo(data.adapter);
-	window.electron.receiveAdapterInfo((evt, arg) => {
-		// Success
-		if (
-			(arg.dhcp == true && data.DHCP == true) ||
-			(arg.ip == data.ipAddress &&
-				(arg.subnet == data.subnet || arg.subnet == undefined) &&
-				(arg.gateway == data.gateway || arg.gateway == undefined))
-		) {
-			showMessage("Network adapter succesfully changed", "success");
-			setTimeout(hideMessage, 1000);
-		}
-		// Error
-		else {
-			showMessage("Unable to change network adapter", "alarm");
-			setTimeout(hideMessage, 1000);
-		}
-	});
+  window.electron.requestAdapterInfo(data.adapter);
+  window.electron.receiveAdapterInfo((evt, arg) => {
+    if (arg.error) {
+      showMessage(
+        JSON.stringify({ type: "fatal", message: "Unable to verify configuration", details: arg.error }),
+        "alarm"
+      );
+      setTimeout(hideMessage, 3000);
+      return;
+    }
+
+    const success =
+      (arg.dhcp === true && (data.DHCP === true || data.DHCP === "true")) ||
+      (arg.ip === data.ipAddress &&
+        (arg.subnet === data.subnet || arg.subnet === undefined) &&
+        (arg.gateway === data.gateway || arg.gateway === undefined));
+
+    if (success) {
+      showMessage(
+        JSON.stringify({ type: "success", message: "Network adapter changed successfully", details: "" }),
+        "success"
+      );
+      setTimeout(hideMessage, 1500);
+    } else {
+      showMessage(
+        JSON.stringify({ type: "fatal", message: "Configuration verification failed", details: "The adapter settings do not match the requested configuration" }),
+        "alarm"
+      );
+      setTimeout(hideMessage, 3000);
+    }
+  });
 }
 
-// Show modal message
 function showMessage(msg, type) {
-	bg.render(<ModalBackground visible="true" />);
-	modalMessage.render(<ModalMessage message={msg} color={type} />);
+  bg.render(<ModalBackground visible="true" />);
+  modalMessage.render(<ModalMessage message={msg} color={type} />);
 }
 
-// Hide modal message
 function hideMessage() {
-	bg.render(<ModalBackground visible="false" />);
-	modalMessage.render(<ModalMessage message={"hide"} />);
+  bg.render(<ModalBackground visible="false" />);
+  modalMessage.render(<ModalMessage message={"hide"} color={""} />);
 }
 
-// Hide modal message on modal
 function hideMessageOnTop() {
-	modalMessage.render(<ModalMessage message={"hide"} />);
+  modalMessage.render(<ModalMessage message={"hide"} color={""} />);
 }
 
-// Show modal confirmation
 function showConfirmation(data, msg, button1, button2) {
-	bg.render(<ModalBackground visible="true" />);
-	modalMessage.render(<ModalConfirmation element={data} message={msg} btn1={button1} btn2={button2} />);
+  bg.render(<ModalBackground visible="true" />);
+  modalMessage.render(<ModalConfirmation element={data} message={msg} btn1={button1} btn2={button2} />);
 }
 
-// Hide modal confirmation
 function hideConfirmation() {
-	bg.render(<ModalBackground visible="false" />);
-	modalMessage.render(<ModalConfirmation message={"hide"} />);
+  bg.render(<ModalBackground visible="false" />);
+  modalMessage.render(<ModalConfirmation message={"hide"} />);
 }
 
-// Show modal window
 function showModal() {
-	bg.render(<ModalBackground visible="true" />);
-	newItem.render(<ModalContainer visible="true" data={nullItem} edit={""} key={Math.random.toString()} />);
+  bg.render(<ModalBackground visible="true" />);
+  newItem.render(<ModalContainer visible="true" data={nullItem} edit={""} key={Math.random.toString()} />);
 }
 
-// Cancel modal window
 function cancelModal() {
-	bg.render(<ModalBackground visible="false" />);
-	newItem.render(<ModalContainer visible="false" data={nullItem} edit={""} />);
+  bg.render(<ModalBackground visible="false" />);
+  newItem.render(<ModalContainer visible="false" data={nullItem} edit={""} />);
 }
 
-// Show modal edit window
 function showModalEdit(item) {
-	originalItem = item;
-	bg.render(<ModalBackground visible="true" />);
-	newItem.render(<ModalContainer visible="true" data={item} edit={"true"} />);
+  originalItem = item;
+  bg.render(<ModalBackground visible="true" />);
+  newItem.render(<ModalContainer visible="true" data={item} edit={"true"} />);
 }
 
-// Cancel modal edit window
 function cancelModalEdit() {
-	bg.render(<ModalBackground visible="false" />);
-	newItem.render(<ModalContainer visible="false" data={nullItem} edit={""} />);
+  bg.render(<ModalBackground visible="false" />);
+  newItem.render(<ModalContainer visible="false" data={nullItem} edit={""} />);
 }
 
-// Save modal window
 function saveModal(data) {
-	window.electron.saveJSON(data);
+  window.electron.saveJSON(data);
 
-	bg.render(<ModalBackground visible="false" />);
-	newItem.render(<ModalContainer visible="false" data={nullItem} edit={""} />);
+  bg.render(<ModalBackground visible="false" />);
+  newItem.render(<ModalContainer visible="false" data={nullItem} edit={""} />);
 
-	window.electron.requestData();
-	window.electron.receiveData((evt, arg) => {
-		updateData(arg);
-	});
+  window.electron.requestData();
+  window.electron.receiveData((evt, arg) => {
+    updateData(arg);
+  });
 
-	showMessage("Network adapter succesfully saved", "success");
-	setTimeout(hideMessage, 2000);
+  showMessage(
+    JSON.stringify({ type: "success", message: "Configuration saved successfully", details: "" }),
+    "success"
+  );
+  setTimeout(hideMessage, 2000);
 }
 
-// Save modal window
 function saveEditionModal(data) {
-	// Read data list
-	window.electron.requestData();
-	window.electron.receiveData((evt, arg) => {
-		// Find original data item to edit
-		for (let i = 0; i < arg.length; i++) {
-			if (originalItem.name == arg[i].name) {
-				// Edit original data item
-				arg[i] = data;
-			}
-		}
-		// Overwrite data list
-		window.electron.overwriteJSON(arg);
+  window.electron.requestData();
+  window.electron.receiveData((evt, arg) => {
+    for (let i = 0; i < arg.length; i++) {
+      if (originalItem.name === arg[i].name) {
+        arg[i] = data;
+      }
+    }
+    window.electron.overwriteJSON(arg);
+    updateData(arg);
 
-		// Update data list
-		updateData(arg);
+    bg.render(<ModalBackground visible="false" />);
+    newItem.render(<ModalContainer visible="false" data={nullItem} edit={""} />);
 
-		// Hide Modal
-		bg.render(<ModalBackground visible="false" />);
-		newItem.render(<ModalContainer visible="false" data={nullItem} edit={""} />);
-
-		// Show success message
-		showMessage("Network adapter succesfully saved", "success");
-		setTimeout(hideMessage, 2000);
-	});
+    showMessage(
+      JSON.stringify({ type: "success", message: "Configuration saved successfully", details: "" }),
+      "success"
+    );
+    setTimeout(hideMessage, 2000);
+  });
 }
 
-// Delete element
 function deleteElement(element) {
-	// Hide confirmation modal
-	modalMessage.render(<ModalConfirmation message={"hide"} />);
+  modalMessage.render(<ModalConfirmation message={"hide"} />);
 
-	// New data array
-	let newData = [];
+  let newData = [];
 
-	//Get data from JSON
-	window.electron.requestData();
-	window.electron.receiveData((evt, arg) => {
-		//JSON data
-		newData = arg;
+  window.electron.requestData();
+  window.electron.receiveData((evt, arg) => {
+    newData = arg;
 
-		// Find element in JSON file
-		let index = newData.findIndex((item) => item.name === element.name);
+    let index = newData.findIndex((item) => item.name === element.name);
 
-		// Delete element
-		newData.splice(index, 1);
-		if (index >= 0) {
-			// Overwrite JSON data
-			window.electron.overwriteJSON(newData);
-			// Update data list
-			updateData(newData);
-			showMessage("Element deleted", "success");
-			setTimeout(hideMessage, 2000);
-		}
-	});
+    if (index >= 0) {
+      newData.splice(index, 1);
+      window.electron.overwriteJSON(newData);
+      updateData(newData);
+      showMessage(
+        JSON.stringify({ type: "success", message: "Configuration deleted", details: "" }),
+        "success"
+      );
+      setTimeout(hideMessage, 2000);
+    }
+  });
 }
 
-// Read data from JSON and update on first scan
 window.electron.requestData();
 window.electron.receiveData((evt, arg) => {
-	updateData(arg);
+  updateData(arg);
 });
 
-// Update JSON list
 function updateData(data) {
-	// Render items
-	itemList.render(<ItemTable items={data} />);
+  itemList.render(<ItemTable items={data} />);
 }
 
-// Update JSON list
 function updateSearch(search) {
-	// Variables
-	let newList = [];
+  let newList = [];
 
-	window.electron.requestData();
-	window.electron.receiveData((evt, arg) => {
-		for (const item of arg) {
-			if (item.name.includes(search)) {
-				newList.push(item);
-			}
-		}
-
-		updateData(newList);
-	});
-	// Render items
-	itemList.render(<ItemTable items={newList} />);
+  window.electron.requestData();
+  window.electron.receiveData((evt, arg) => {
+    for (const item of arg) {
+      if (item.name.toLowerCase().includes(search.toLowerCase())) {
+        newList.push(item);
+      }
+    }
+    updateData(newList);
+  });
 }
 
-// Add new item button
 $(".newItem").click(showModal);

@@ -24,6 +24,7 @@
 		"fs-jetpack": "^5.1.0",
 		"jquery": "^3.6.3",
 		"network": "^0.7.0",
+		"powershell": "^2.3.3",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},

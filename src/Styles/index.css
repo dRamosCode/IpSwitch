@@ -1,528 +1,571 @@
 html {
-	margin: 0;
-	padding: 0;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-	font-family: Lato-Light;
-	font-size: 0.9em;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Lato-Light;
+  font-size: 0.9em;
 }
 body {
-	margin: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	overflow: hidden;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
 }
 input {
-	padding: 0em 1.5em;
+  padding: 0em 1.5em;
 }
 
 /*TOP NAVIGATION BAR */
 .navBar {
-	height: 3em;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	flex-shrink: 0;
-	gap: 1em;
-	background-color: var(--bgDark2);
-	box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.2);
-	z-index: 3;
-	-webkit-user-select: none;
-	user-select: none;
-	-webkit-app-region: drag;
+  height: 3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1em;
+  background-color: var(--bgDark2);
+  box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-app-region: drag;
 }
 .logo {
-	width: 3em;
-	height: 70%;
-	margin-left: 0.5em;
-	background-image: url(./Images/Icons/ipswitch.svg);
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
+  width: 3em;
+  height: 70%;
+  margin-left: 0.5em;
+  background-image: url(./Images/Icons/ipswitch.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .brandName {
-	flex-grow: 1;
-	font-size: 1.5em;
-	font-family: Lato-Italic;
-	margin-left: -0.75em;
+  flex-grow: 1;
+  font-size: 1.5em;
+  font-family: Lato-Italic;
+  margin-left: -0.75em;
 }
 .brandNameFirstColor {
-	color: var(--bgComplementary5);
+  color: var(--bgComplementary5);
 }
 .brandNameSecondColor {
-	color: var(--bgLight2);
+  color: var(--bgLight2);
 }
 
 .appControl {
-	margin-right: 1em;
-	width: 5em;
-	height: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	-webkit-app-region: no-drag;
+  margin-right: 1em;
+  width: 5em;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  -webkit-app-region: no-drag;
 }
 .minimize {
-	height: 100%;
-	flex-grow: 1;
-	background-color: var(--correct);
-	clip-path: circle(0.5em at center);
-	cursor: pointer;
-	background-image: url(./Images/Icons/minimize.svg);
-	background-position: 0 30%;
-	background-size: 0;
-	background-repeat: no-repeat;
+  height: 100%;
+  flex-grow: 1;
+  background-color: var(--correct);
+  clip-path: circle(0.5em at center);
+  cursor: pointer;
+  background-image: url(./Images/Icons/minimize.svg);
+  background-position: 0 30%;
+  background-size: 0;
+  background-repeat: no-repeat;
 }
 .maximize {
-	height: 100%;
-	flex-grow: 1;
-	background-color: var(--warning);
-	clip-path: circle(0.5em at center);
-	cursor: pointer;
-	background-image: url(./Images/Icons/maximize.svg);
-	background-position: center;
-	background-size: 0;
-	background-repeat: no-repeat;
+  height: 100%;
+  flex-grow: 1;
+  background-color: var(--warning);
+  clip-path: circle(0.5em at center);
+  cursor: pointer;
+  background-image: url(./Images/Icons/maximize.svg);
+  background-position: center;
+  background-size: 0;
+  background-repeat: no-repeat;
 }
 .close {
-	height: 100%;
-	flex-grow: 1;
-	background-color: var(--error);
-	clip-path: circle(0.5em at center);
-	cursor: pointer;
-	background-image: url(./Images/Icons/close.svg);
-	background-position: center;
-	background-size: 0;
-	background-repeat: no-repeat;
+  height: 100%;
+  flex-grow: 1;
+  background-color: var(--error);
+  clip-path: circle(0.5em at center);
+  cursor: pointer;
+  background-image: url(./Images/Icons/close.svg);
+  background-position: center;
+  background-size: 0;
+  background-repeat: no-repeat;
 }
 
 .content {
-	display: flex;
-	flex-direction: row;
-	overflow: hidden;
-	height: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  height: 100%;
 }
 
 /*LEFT VERTICAL MENU*/
 .menu {
-	width: 4em;
-	display: flex;
-	flex-direction: column-reverse;
-	align-items: center;
-	flex-shrink: 0;
-	background-color: var(--bgDark4);
-	box-shadow: 0.1em 0px 0.2em rgba(0, 0, 0, 0.2);
-	z-index: 2;
+  width: 4em;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: var(--bgDark4);
+  box-shadow: 0.1em 0px 0.2em rgba(0, 0, 0, 0.2);
+  z-index: 2;
 }
 .settings {
-	height: 4em;
-	width: 2em;
-	background-image: url(./Images/Icons/settings.svg);
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
-	filter: invert(90%) sepia(6%) saturate(282%) hue-rotate(169deg) brightness(95%) contrast(86%);
+  height: 4em;
+  width: 2em;
+  background-image: url(./Images/Icons/settings.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: invert(90%) sepia(6%) saturate(282%) hue-rotate(169deg) brightness(95%) contrast(86%);
 }
 
 /*TABLE CONTENT*/
 .contentContainer {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	background-color: var(--bgLight2);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--bgLight2);
 }
 .navigation {
-	height: 3em;
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-end;
-	gap: 0.5em;
-	background-color: var(--bgLight2);
-	box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.2);
-	z-index: 1;
+  height: 3em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5em;
+  background-color: var(--bgLight2);
+  box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 .searchIcon {
-	height: 4em;
-	width: 1.5em;
-	background-image: url(./Images/Icons/search.svg);
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
-	filter: invert(25%) sepia(6%) saturate(282%) hue-rotate(169deg) brightness(95%) contrast(86%);
+  height: 4em;
+  width: 1.5em;
+  background-image: url(./Images/Icons/search.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: invert(25%) sepia(6%) saturate(282%) hue-rotate(169deg) brightness(95%) contrast(86%);
 }
 .search {
-	width: 13em;
-	height: 60%;
-	box-shadow: inset 0px 0.1em 0.2em rgba(0, 0, 0, 0.08);
-	border: none;
-	border-radius: 5em;
-	background-color: var(--bgLight1);
+  width: 13em;
+  height: 60%;
+  box-shadow: inset 0px 0.1em 0.2em rgba(0, 0, 0, 0.08);
+  border: none;
+  border-radius: 5em;
+  background-color: var(--bgLight1);
 }
 .newItem {
-	width: 5em;
-	height: auto;
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
-	margin-right: 1em;
-	background-color: var(--bgComplementary6);
-	border: 0.15em solid var(--bgComplementary6);
-	border-radius: 0.3em;
-	text-align: center;
-	font-weight: bold;
-	color: var(--bgLight2);
-	cursor: pointer;
-	-webkit-user-select: none;
-	user-select: none;
+  width: 5em;
+  height: auto;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-right: 1em;
+  background-color: var(--bgComplementary6);
+  border: 0.15em solid var(--bgComplementary6);
+  border-radius: 0.3em;
+  text-align: center;
+  font-weight: bold;
+  color: var(--bgLight2);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .headings {
-	width: 100%;
-	background-color: var(--bgLight2);
-	border-bottom: 0.1em solid var(--bgLight5);
-	table-layout: fixed;
-	font-family: Lato-Bold;
-	user-select: none;
+  width: 100%;
+  background-color: var(--bgLight2);
+  border-bottom: 0.1em solid var(--bgLight5);
+  table-layout: fixed;
+  font-family: Lato-Bold;
+  user-select: none;
 }
 
 /*CONTENT TABLE*/
 .itemTable {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	overflow: auto;
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
-	user-select: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  user-select: none;
 }
 .itemTable::-webkit-scrollbar {
-	display: none;
+  display: none;
 }
 .itemList {
-	width: 100%;
-	border-collapse: collapse;
-	table-layout: fixed;
-	border-left: 0.3em solid var(--bgComplementary1);
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-left: 0.3em solid var(--bgComplementary1);
 }
 
 th {
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 .itemSettings {
-	visibility: hidden;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-evenly;
-	height: 100%;
-	width: 100%;
+  visibility: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
 }
 .edit {
-	cursor: pointer;
-	width: 1.5em;
-	margin-left: -1em;
+  cursor: pointer;
+  width: 1.5em;
+  margin-left: -1em;
 }
 .delete {
-	cursor: pointer;
-	width: 1.5em;
+  cursor: pointer;
+  width: 1.5em;
 }
 tr :first-child {
-	padding-left: 1em;
-	text-align: left;
+  padding-left: 1em;
+  text-align: left;
 }
 .itemList tr:nth-child(odd) {
-	background-color: var(--bgLight1);
-	text-align: center;
+  background-color: var(--bgLight1);
+  text-align: center;
 }
 .itemList tr:nth-child(even) {
-	background-color: var(--bgLight3);
+  background-color: var(--bgLight3);
 }
 
 /* Modal message window */
+.messageDetails {
+  margin-top: 0.75em;
+  padding-top: 0.75em;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.85em;
+  color: #555;
+  word-break: break-word;
+  font-family: monospace;
+}
+
 .modalMessage {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding-top: 1em;
-	padding-bottom: 1em;
-	padding-left: 1.5em;
-	padding-right: 1.5em;
-	width: auto;
-	z-index: 99;
-	-webkit-user-select: none;
-	user-select: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  width: auto;
+  z-index: 99;
+  -webkit-user-select: none;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 500px;
 }
 
 .modalConfirmation {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: auto;
-	background-color: var(--bgLight1);
-	z-index: 99;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  background-color: var(--bgLight1);
+  z-index: 99;
 }
 .modalConfirmation p {
-	padding: 1.5em;
+  padding: 1.5em;
 }
 .modalConfirmation div {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .modalConfirmation button {
-	flex-grow: 1;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	cursor: pointer;
+  flex-grow: 1;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  cursor: pointer;
 }
 
 .alarm {
-	background-color: var(--messageError);
-	border: 0.15em solid var(--messageError);
+  background-color: var(--messageError);
+  border: none;
 }
 
 .warning {
-	background-color: var(--messageWarning);
-	border: none;
+  background-color: var(--messageWarning);
+  border: none;
 }
 
 .success {
-	background-color: var(--messageSuccess);
-	border: none;
+  background-color: var(--messageSuccess);
+  border: none;
 }
 
 .neutral {
-	background-color: var(--bgLight1);
-	border: 0.15em solid var(--bgLight3);
+  background-color: var(--bgLight1);
+  border: none;
 }
 
 .shadow {
-	box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 20%);
+  box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 20%);
 }
+
+.messageContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+
+.messageIcon {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.icon-fatal {
+  color: var(--error);
+}
+.icon-recoverable {
+  color: #e67e22;
+}
+.icon-warning {
+  color: #f39c12;
+}
+.icon-success {
+  color: var(--correct);
+}
+.messageText {
+  flex: 1;
+  font-weight: 500;
+}
+
 
 /*NEW ITEM MODAL WINDOW*/
 
 .modalContainer {
-	position: fixed;
-	top: 55%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 60%;
-	height: 60%;
-	background-color: white;
-	box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.2);
-	border-radius: 1em;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-around;
-	z-index: 99;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  background-color: white;
+  box-shadow: 0px 0.1em 0.2em rgba(0, 0, 0, 0.2);
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 99;
 }
 .bgContainer {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 30%);
-	z-index: 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 30%);
+  z-index: 2;
 }
 .modalContainer input {
-	padding-top: 0.7em;
-	padding-bottom: 0.7em;
-	border: none;
-	border-radius: 0.3em;
-	background-color: var(--bgLight3);
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+  border: none;
+  border-radius: 0.3em;
+  background-color: var(--bgLight3);
 }
 .headerContainer {
-	margin-top: 1em;
-	width: 90%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
+  margin-top: 1em;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 .name {
-	width: 50%;
+  width: 50%;
 }
 .adapter {
-	width: 30%;
-	padding: 0.75em;
-	border: none;
-	border-radius: 0.5em;
-	background-color: var(--bgLight3);
+  width: 30%;
+  padding: 0.75em;
+  border: none;
+  border-radius: 0.5em;
+  background-color: var(--bgLight3);
 }
 
 .ipAddressContainer {
-	width: 90%;
-	display: flex;
-	flex-direction: row;
-	align-items: baseline;
-	justify-content: space-between;
-	gap: 2em;
-	white-space: nowrap;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2em;
+  white-space: nowrap;
 }
 .ipAddress {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
-	justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
 }
 .ipElement {
-	width: 12%;
-	text-align: center;
+  width: 12%;
+  text-align: center;
 }
 .buttonsContainer {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-end;
-	gap: 2em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2em;
 }
 .DHCPCheckbox {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	gap: 3em;
-	margin-left: 2em;
-	margin-right: auto;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	padding-right: 1em;
-	padding-left: 1em;
-	border: none;
-	border-radius: 0.3em;
-	font-weight: bold;
-	background-color: var(--bgLight3);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3em;
+  margin-left: 2em;
+  margin-right: auto;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+  border: none;
+  border-radius: 0.3em;
+  font-weight: bold;
+  background-color: var(--bgLight3);
 }
 .DHCPCheckbox p {
-	margin: 0;
+  margin: 0;
 }
 .checkBox {
-	appearance: none;
-	background-color: white !important;
-	width: 1.5em;
-	height: 1.5em;
-	padding-top: 0 !important;
-	padding-bottom: 0 !important;
-	padding-left: 0 !important;
-	padding-right: 0 !important;
-	border-radius: 1em !important;
-	cursor: pointer;
+  appearance: none;
+  background-color: white !important;
+  width: 1.5em;
+  height: 1.5em;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-radius: 1em !important;
+  cursor: pointer;
 }
 .checkBox:checked {
-	background-color: var(--correctLight) !important;
+  background-color: var(--correctLight) !important;
 }
 .cancelButton {
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	padding-right: 2em;
-	padding-left: 2em;
-	border: 0.15em solid var(--bgLight5);
-	border-radius: 0.3em;
-	font-weight: bold;
-	background-color: var(--bgLight1);
-	cursor: pointer;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 2em;
+  padding-left: 2em;
+  border: 0.15em solid var(--bgLight5);
+  border-radius: 0.3em;
+  font-weight: bold;
+  background-color: var(--bgLight1);
+  cursor: pointer;
 }
 .saveButton {
-	margin-right: 3em;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	padding-right: 2em;
-	padding-left: 2em;
-	border: 0.15em solid var(--correctLight);
-	border-radius: 0.3em;
-	font-weight: bold;
-	background-color: var(--correctLight);
-	cursor: pointer;
+  margin-right: 3em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 2em;
+  padding-left: 2em;
+  border: 0.15em solid var(--correctLight);
+  border-radius: 0.3em;
+  font-weight: bold;
+  background-color: var(--correctLight);
+  cursor: pointer;
 }
 .empty {
-	background-color: rgba(255, 0, 0, 5%) !important;
+  background-color: rgba(255, 0, 0, 5%) !important;
 }
 .disabled {
-	background-color: var(--bgLight4) !important;
-	color: var(--bgLight4) !important;
-	pointer-events: none !important;
+  background-color: var(--bgLight4) !important;
+  color: var(--bgLight4) !important;
+  pointer-events: none !important;
 }
 
 /*HOVERS*/
 .cancelButton:hover {
-	border: 0.15em solid var(--bgComplementary4);
+  border: 0.15em solid var(--bgComplementary4);
 }
 .cancelButton:active {
-	border: 0.15em solid var(--bgComplementary4);
-	background-color: var(--bgLight2);
+  border: 0.15em solid var(--bgComplementary4);
+  background-color: var(--bgLight2);
 }
 .saveButton:hover {
-	border: 0.15em solid var(--bgComplementary4);
+  border: 0.15em solid var(--bgComplementary4);
 }
 .saveButton:active {
-	border: 0.15em solid var(--bgComplementary4);
-	background-color: var(--correct);
+  border: 0.15em solid var(--bgComplementary4);
+  background-color: var(--correct);
 }
 .checkBox:hover {
-	border: 0.15em solid var(--bgComplementary4);
+  border: 0.15em solid var(--bgComplementary4);
 }
 .checkBox:active {
-	border: 0.15em solid var(--bgComplementary4);
-	background-color: var(--correctLight);
+  border: 0.15em solid var(--bgComplementary4);
+  background-color: var(--correctLight);
 }
 input:hover {
-	outline: 0.15em solid var(--bgComplementary4);
+  outline: 0.15em solid var(--bgComplementary4);
 }
 input:not(.empty):focus {
-	outline: 0.15em solid var(--bgComplementary4);
+  outline: 0.15em solid var(--bgComplementary4);
 }
 select:hover {
-	outline: 0.15em solid var(--bgComplementary4);
+  outline: 0.15em solid var(--bgComplementary4);
 }
 select:not(.empty):focus {
-	outline: 0.15em solid var(--bgComplementary4);
+  outline: 0.15em solid var(--bgComplementary4);
 }
 button.neutral:hover {
-	border: 0.15em solid var(--bgComplementary4);
+  border: 0.15em solid var(--bgComplementary4);
 }
 button.neutral:focus {
-	background-color: var(--bgComplementary1);
-	border: 0.15em solid var(--bgComplementary4);
+  background-color: var(--bgComplementary1);
+  border: 0.15em solid var(--bgComplementary4);
 }
 button.alarm:hover {
-	border: 0.15em solid var(--bgComplementary4);
+  border: 0.15em solid var(--bgComplementary4);
 }
 button.alarm:focus {
-	background-color: var(--messageErrorDark);
-	border: 0.15em solid var(--bgComplementary4);
+  background-color: var(--messageErrorDark);
+  border: 0.15em solid var(--bgComplementary4);
 }
 .itemList tr:hover {
-	border-left: 0.3em solid var(--bgComplementary4);
+  border-left: 0.3em solid var(--bgComplementary4);
 }
 .itemList tr:hover .itemSettings {
-	visibility: visible;
+  visibility: visible;
 }
 .appControl:hover div {
-	background-size: contain;
+  background-size: contain;
 }
 .newItem:hover {
-	border: 0.15em solid var(--bgComplementary4);
+  border: 0.15em solid var(--bgComplementary4);
 }
 .edit:hover {
-	filter: invert(31%) sepia(100%) saturate(889%) hue-rotate(172deg) brightness(103%) contrast(106%);
+  filter: invert(31%) sepia(100%) saturate(889%) hue-rotate(172deg) brightness(103%) contrast(106%);
 }
 .delete:hover {
-	filter: invert(31%) sepia(100%) saturate(889%) hue-rotate(172deg) brightness(103%) contrast(106%);
+  filter: invert(31%) sepia(100%) saturate(889%) hue-rotate(172deg) brightness(103%) contrast(106%);
 }
