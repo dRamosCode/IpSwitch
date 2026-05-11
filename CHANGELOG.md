@@ -13,3 +13,10 @@ Initial release.
 ### Fixed
 
 - Update `electron` version to 22.3.24 due to security concerns.
+
+## [1.0.2] - 2026/05/11
+
+### Fixed
+
+- Fixed error handling
+- Allow external adapter configuration change

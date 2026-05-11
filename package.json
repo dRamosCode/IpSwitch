@@ -1,7 +1,7 @@
 {
 	"name": "ipswitch",
 	"productName": "ipswitch",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "IP Adress Manager (IPAM)",
 	"icon": "./src/Styles/Images/Icons/ipswitch.ico",
 	"setupIcon": "./src/Styles/Images/Icons/ipswitch.ico",
